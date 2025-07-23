@@ -28,13 +28,13 @@ async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
         user_threads[user.id] = topic.message_thread_id
 
     thread_id = user_threads[user.id]
+    sender = user.username or user.first_name
+    text = message.text
 
     await context.bot.send_message(
         chat_id=GROUP_ID,
         message_thread_id=thread_id,
-        text=f"📨 Сообщение от @{user.username or user.first_name}:
-
-{message.text}"
+        text=f"📨 Сообщение от @{sender}:\n\n{text}"
     )
 
     await message.reply_text("✨Сообщение отправлено!\n\nЖдите ответа в ближайшее время.")
